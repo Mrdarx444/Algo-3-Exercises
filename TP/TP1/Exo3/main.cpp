@@ -24,6 +24,27 @@ void sort_by_distance(Point T[], const size_t size) {
   }
 }
 
+void bubble_sort_by_distance(Point T[], const size_t size) {
+  for (size_t i = 0; i < size - 1; i++) {
+    for (size_t j = 0; j < size - i - 1; j++) {
+      if (distance(T[j]) > distance(T[j+1])) swap(T[j], T[j+1]);
+    }
+  }
+}
+
+void insertion_sort_by_distance(Point T[], const size_t size) {
+  for (size_t i = 1; i < size; i++) {
+    Point key = T[i];
+    int j = i-1;
+    while(j >= 0 && distance(key) < distance(T[j])) {
+      T[j+1].x = T[j].x;
+      T[j+1].y = T[j].y;
+      j--;
+    }
+    T[j+1] = key;
+  }
+}
+
 void display(Point T[], const size_t size) {
   for (size_t i = 0; i < size; i++) {
     cout << "(" << T[i].x << "," << T[i].y << ") ";
@@ -35,7 +56,7 @@ int main() {
   Point T[] = {{3,4}, {1,2}, {0,0}, {2,2}};
   size_t size = sizeof(T)/sizeof(Point);
   display(T, size);
-  sort_by_distance(T, size);
+  insertion_sort_by_distance(T, size);
   display(T, size);
   return 0;
 }
