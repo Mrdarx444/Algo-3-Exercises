@@ -26,6 +26,21 @@ void sort_by_frequancy(int T[], const size_t size) {
   }
 }
 
+void bubble_sort_by_frequancy(int T[], const size_t size) {
+  for (size_t i = 0; i < size - 1; i++) {
+    for (size_t j = 0; j < size - i - 1; j++) {
+      size_t next_freq = frequency(T, size, T[j+1]);
+      size_t j_freq = frequency(T, size, T[j]);
+      if (
+        (j_freq > next_freq) ||
+        (j_freq == next_freq && T[j+1] < T[j])
+      ) {
+        swap(T[j], T[j+1]);
+      }
+    }
+  }
+}
+
 void display(int T[], const size_t size) {
   for (size_t i = 0; i < size; i++) {
     cout << T[i] << " ";
@@ -37,7 +52,7 @@ int main() {
   int T[] = {4, 5, 6, 5, 4, 3};
   size_t size = sizeof(T)/sizeof(int);
   display(T, size);
-  sort_by_frequancy(T, size);
+  bubble_sort_by_frequancy(T, size);
   display(T, size);
   return 0;
 }
