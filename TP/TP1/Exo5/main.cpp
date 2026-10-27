@@ -19,7 +19,6 @@ void sort_by_digits(unsigned int *n) {
     digits[i] = (*n) % 10;
     *n /= 10;
   }
-  
   for (size_t i = 0; i < digits_count - 1; i++) {
     size_t min_i = i;
     for (size_t j = i+1; j < digits_count; j++) {
@@ -29,7 +28,6 @@ void sort_by_digits(unsigned int *n) {
     }
     swap(digits[i], digits[min_i]);
   }
-  
   *n = 0;
   for (size_t i = 0; i < digits_count; i++) {
     *n += digits[digits_count-i-1] * (int)pow(10, i);
