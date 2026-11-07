@@ -45,6 +45,32 @@ void insertion_sort_by_distance(Point T[], const size_t size) {
   }
 }
 
+size_t partition(Point T[], const size_t start, const size_t end, const size_t pivot) {
+  swap(T[pivot], T[end]);
+  
+  double pivot_distance = distance(T[end]);
+  size_t j = start;
+
+  for (size_t i = start; i < end; i++) {
+    if (distance(T[i]) < pivot_distance) {
+      swap(T[i], T[j]);
+      j++;
+    }
+  }
+
+  swap(T[j], T[end]);
+
+  return j;
+}
+
+void quick_sort_by_distance(Point T[], const size_t start, const size_t end) {
+  if (end <= start) return;
+    int pivot = partition(T, start, end, (start+end)/2);
+
+    quick_sort_by_distance(T, start, pivot - 1);
+    quick_sort_by_distance(T, pivot + 1, end);
+}
+
 void display(Point T[], const size_t size) {
   for (size_t i = 0; i < size; i++) {
     cout << "(" << T[i].x << "," << T[i].y << ") ";
@@ -56,7 +82,7 @@ int main() {
   Point T[] = {{3,4}, {1,2}, {0,0}, {2,2}};
   size_t size = sizeof(T)/sizeof(Point);
   display(T, size);
-  insertion_sort_by_distance(T, size);
+  quick_sort_by_distance(T, 0, size - 1);
   display(T, size);
   return 0;
 }
